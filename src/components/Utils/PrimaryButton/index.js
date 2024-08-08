@@ -1,7 +1,15 @@
-import React from 'react'
+import React from 'react';
+import '../../ComponentsCss/utils/PrimaryButton/PrimaryButton.css';
 
-export default function PrimaryButton() {
+const PrimaryButton = ({ onClick, children, className }) => {
   return (
-    <div>PrimaryButton</div>
-  )
-}
+    <button 
+      className={`primary-button ${className || ''}`}
+      onClick={onClick}
+    >
+      {children}
+    </button>
+  );
+};
+
+export default PrimaryButton;

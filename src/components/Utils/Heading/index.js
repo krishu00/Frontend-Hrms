@@ -1,7 +1,16 @@
-import React from 'react'
+import React from 'react';
+import '../../ComponentsCss/utils/Heading/Heading.css';
 
-export default function Heading() {
+const Heading = ({ level = 1, children, className }) => {
+  const Tag = `h${level}`;
   return (
-    <div>Heading</div>
-  )
-}
+    <Tag className={`heading ${className || ''}`}>
+      {children}
+    </Tag>
+  );
+};
+
+export default Heading;
+
+
+
