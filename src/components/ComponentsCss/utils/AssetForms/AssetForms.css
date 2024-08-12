@@ -87,7 +87,7 @@
 
     .select-selected {
       background-color: white;
-      padding: 15px;
+      padding: 10px;
       border: 1px solid #ddd;
       border-radius: 4px;
       font-size: 1rem;
@@ -130,7 +130,7 @@
       overflow-y: auto;
 
       div {
-        padding: 15px;
+        padding: 10px;
         cursor: pointer;
         user-select: none;
         transition: background-color 0.2s ease;

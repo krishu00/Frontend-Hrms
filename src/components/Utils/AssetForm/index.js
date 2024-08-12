@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import '../../ComponentsCss/utils/AssetForms/AssetForms.css';
+import '../../ComponentsCss/utils/AssetForms/AssetForms.css'; 
 
 const AssetForms = () => {
   const [assetType, setAssetType] = useState('');
