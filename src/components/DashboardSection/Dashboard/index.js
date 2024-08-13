@@ -6,7 +6,7 @@ export default function Dashboard() {
   return (
     <div>
       <Navbar />
-      <Templates/>
+    
     </div>
   );
 }
