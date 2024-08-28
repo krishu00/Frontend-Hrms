@@ -1,16 +1,17 @@
 import React from "react";
-// import Navbar from "../Navbar";
-// import Templates from "../TemplatesComponents/Index";
-// import CommonButtons from "../../Utils/CommonButtons";
- import AssetsForm from "../../Utils/AssetsForm/index.js";
+import Navbar from "../Navbar";
+import Templates from "../TemplatesComponents/Index";
+import RequestForm from "../../Utils/RequestForm";
+
 
 export default function Dashboard() {
   return (
     <div>
-     <AssetsForm/>
-      {/* <CommonButtons />
-      {/* <SecondaryButton/> */}
-      {/* <h3>BUTTON</h3>  */}
+  
+      <RequestForm title="Create An Account" cancelBtn={true} />
+      {/* <RequestForm/> */}
+      
+
     </div>
   );
 }
