@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&display=swap');
+
+body {
+  font-family: 'Karla', sans-serif;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.login-heading {
+  font-size: 50px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.login-form {
+  background: linear-gradient(to bottom, #FFFFFF -8%, #e0ece0 59%, #DDEBDD 100%);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  margin-left: -250px;
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.password-label {
+  margin-left: 4px;
+  text-align: left;
+  width: 100%;
+}
+
+input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: 'Karla', sans-serif;
+}
+
+.login-button {
+    width: 123px;
+    height: 50px;
+    padding: 0.75rem;
+    background-color:  #84C7AE;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Karla', sans-serif;
+    color: white;
+    font-size: 16px;
+    font-weight: 400; /* 'regular' is typically 400 in CSS */
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* This creates a drop shadow effect */
+  }
+
+
+
+
+  
