@@ -1,15 +1,22 @@
-import "./App.css";
-import Main from "./Main";
-import { BrowserRouter as Router } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { AuthProvider } from './components/ComponentsCss/Authentication/authentication';
+import Main from './Main';
 
 function App() {
   return (
     <Router>
-      <div className="App">
+      <AuthProvider>
         <Main />
-      </div>
+      </AuthProvider>
     </Router>
   );
 }
 
 export default App;
+
+
+
+
+
+
