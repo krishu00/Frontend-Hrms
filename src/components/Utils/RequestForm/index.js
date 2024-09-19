@@ -84,7 +84,11 @@ const RequestForm = (props) => {
       e.preventDefault();
       onSubmit(formData, setIsLoading, setErrorMessage);
     }}>
-      <h2 className="form-title">{props.title}</h2>
+      {isSignIn ? (
+        <h1 className="sign-in-header">{props.title}</h1>
+      ) : (
+        <h2 className="form-title">{props.title}</h2>
+      )}
       
       {formFields.map(field => (
         <div key={field.name} className={`${field.name}-input`}>
@@ -108,6 +112,8 @@ const RequestForm = (props) => {
 };
 
 export default RequestForm;
+
+
 
 
 

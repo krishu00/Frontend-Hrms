@@ -1,8 +1,9 @@
 import React from 'react';
 import { useAuth } from '../../ComponentsCss/Authentication/authentication';
-import { useNavigate, NavLink, Outlet } from 'react-router-dom';
+import { useNavigate, NavLink, Routes, Route } from 'react-router-dom';
 import { FaHome, FaUsers, FaTachometerAlt, FaCalendarAlt, FaChartBar, FaFileAlt, FaEnvelope } from 'react-icons/fa';
 import '../../ComponentsCss/Dashboard/Dashboard.css';
+import Request from '../../DashboardSection/Request/index';
 
 function Dashboard() {
   const { user, logout } = useAuth();
@@ -36,15 +37,21 @@ function Dashboard() {
             <span className="sidebar-label">{item.label}</span>
           </NavLink>
         ))}
+        <button className="logout-button" onClick={handleLogout}>Logout</button>
       </div>
       <div className="main-content">
-        <h1>Welcome to the Dashboard, {user?.email}</h1>
-        <button onClick={handleLogout}>Logout</button>
-        <Outlet />
+        <Routes>
+          <Route path="request" element={<Request />} />
+          {/* Add other routes for different dashboard sections */}
+          <Route path="*" element={<h1>Welcome to the Dashboard, {user?.email}</h1>} />
+        </Routes>
       </div>
     </div>
   );
 }
 
 export default Dashboard;
+
+
+
 
