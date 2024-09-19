@@ -1,59 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import '../../ComponentsCss/utils/RequestForm/RequestForm.css';
+import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import '../../ComponentsCss/utils/RequestForm/RequestForm.css';
 
 const RequestForm = (props) => {
   const [formData, setFormData] = useState({
     dateRange: [null, null],
     selectedDetail: '',
     title: '',
-    reason: ''
+    reason: '',
+    email: '',
+    password: ''
   });
-  const [requests, setRequests] = useState([]);
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const formFields = [
-    { name: 'dateRange', label: 'Choose date', type: 'date' },
-    { name: 'selectedDetail', label: 'Details', type: 'select', options: ['A', 'B', 'C'] },
-    { name: 'title', label: 'Title', type: 'text' },
-    { name: 'reason', label: 'Reason', type: 'textarea' }
-  ];
-
-  useEffect(() => {
-    const storedRequests = JSON.parse(localStorage.getItem('requests')) || [];
-    setRequests(storedRequests);
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('requests', JSON.stringify(requests));
-  }, [requests]);
+  const { formFields, isSignIn, onSubmit } = props;
 
   const handleInputChange = (name, value) => {
     setFormData(prevData => ({
       ...prevData,
       [name]: value
     }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    const newRequest = {
-      id: Date.now(),
-      ...formData
-    };
-
-    setRequests([...requests, newRequest]);
-
-    setFormData({
-      dateRange: [null, null],
-      selectedDetail: '',
-      title: '',
-      reason: ''
-    });
-
-    alert('Request submitted successfully!');
   };
 
   const renderField = (field) => {
@@ -86,9 +56,11 @@ const RequestForm = (props) => {
           </div>
         );
       case 'text':
+      case 'password':
+      case 'email':
         return (
           <input
-            type="text"
+            type={field.type}
             value={formData[field.name]}
             onChange={(e) => handleInputChange(field.name, e.target.value)}
             placeholder={`Enter ${field.label.toLowerCase()} here`}
@@ -108,27 +80,41 @@ const RequestForm = (props) => {
   };
 
   return (
-    <>
-      <form className="request-form" onSubmit={handleSubmit}>
-        <h2 className="form-title">{props.title}</h2>
-        
-        {formFields.map(field => (
-          <div key={field.name} className={`${field.name}-input`}>
-            <h3>{field.label}</h3>
-            {renderField(field)}
-          </div>
-        ))}
-
-        <div className="form-buttons">
-          {props.cancelBtn && <button type="button" className="edit-button">Cancel</button>}
-          <button type="submit" className="apply-button">Apply</button>
+    <form className={`request-form ${isSignIn ? 'sign-in-form' : ''}`} onSubmit={(e) => {
+      e.preventDefault();
+      onSubmit(formData, setIsLoading, setErrorMessage);
+    }}>
+      <h2 className="form-title">{props.title}</h2>
+      
+      {formFields.map(field => (
+        <div key={field.name} className={`${field.name}-input`}>
+          <h3>{field.label}</h3>
+          {renderField(field)}
         </div>
-      </form>
-    </>
+      ))}
+
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+      <div className="form-buttons">
+        {!isSignIn && props.cancelBtn && (
+          <button type="button" className="edit-button" onClick={props.cancelBtn}>Cancel</button>
+        )}
+        <button type="submit" className={`apply-button ${isSignIn ? 'login-button' : ''}`} disabled={isLoading}>
+          {isLoading ? 'Loading...' : (isSignIn ? 'Login' : 'Apply')}
+        </button>
+      </div>
+    </form>
   );
 };
 
 export default RequestForm;
+
+
+
+
+
+
+
 
 
 
