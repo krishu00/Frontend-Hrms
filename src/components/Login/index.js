@@ -1,10 +1,8 @@
-import './Login.css';
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import RequestForm from "../Utils/RequestForm";
 import { useAuth } from "../ComponentsCss/Authentication/authentication";
-
 
 export default function Login() {
   const [formType, setFormType] = useState("signIn");
@@ -74,7 +72,6 @@ export default function Login() {
 
   return (
     <div className="login-container">
-
       <div className="form-type-buttons">
         <button onClick={() => setFormType("signIn")}>Sign In</button>
         <button onClick={() => setFormType("request")}>Make Request</button>
