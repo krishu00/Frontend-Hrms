@@ -62,11 +62,11 @@ export default function Request() {
           <tbody>
             {requestedData.map((item) => (
               <tr key={item.sno}>
-                <td>{item.sno}</td>
-                <td>{item.name}</td>
-                <td>{item.appliedFor}</td>
-                <td>{item.reason}</td>
-                <td>
+                <td data-label="S.No">{item.sno}</td>
+                <td data-label="Name">{item.name}</td>
+                <td data-label="Applied For">{item.appliedFor}</td>
+                <td data-label="Reason">{item.reason}</td>
+                <td data-label="Action">
                   <div className="action-icons">
                     <FaEye className="action-icon" />
                     <FaCheck className="action-icon" />
@@ -94,11 +94,11 @@ export default function Request() {
           <tbody>
             {appliedData.map((item) => (
               <tr key={item.sno}>
-                <td>{item.sno}</td>
-                <td>{item.name}</td>
-                <td>{item.appliedFor}</td>
-                <td>{item.reason}</td>
-                <td>{item.appliedOn}</td>
+                <td data-label="S.No">{item.sno}</td>
+                <td data-label="Name">{item.name}</td>
+                <td data-label="Applied For">{item.appliedFor}</td>
+                <td data-label="Reason">{item.reason}</td>
+                <td data-label="Applied On">{item.appliedOn}</td>
               </tr>
             ))}
           </tbody>
@@ -107,6 +107,7 @@ export default function Request() {
     </div>
   );
 }
+
 
 
 
