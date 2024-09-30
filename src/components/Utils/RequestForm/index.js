@@ -5,12 +5,13 @@ import '../../ComponentsCss/utils/RequestForm/RequestForm.css';
 
 const RequestForm = (props) => {
   const [formData, setFormData] = useState({
-    dateRange: [null, null],
-    selectedDetail: '',
-    title: '',
-    reason: '',
+    name: '',
+    dateOfBirth: null,
+    company: '',
     email: '',
-    password: ''
+    designation: '',
+    password: '',
+    contactNumber: ''
   });
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -31,12 +32,16 @@ const RequestForm = (props) => {
       case 'date':
         return (
           <DatePicker
-            selectsRange={true}
-            startDate={formData.dateRange[0]}
-            endDate={formData.dateRange[1]}
-            onChange={(update) => handleInputChange('dateRange', update)}
-            isClearable={true}
-            placeholderText="Select start and end date"
+            selected={formData.dateOfBirth}
+            onChange={(date) => handleInputChange('dateOfBirth', date)}
+            dateFormat="dd/MM/yyyy"
+            showYearDropdown
+            scrollableYearDropdown
+            yearDropdownItemNumber={100}
+            placeholderText="Select date of birth"
+            isClearable
+            showMonthDropdown
+            dropdownMode="select"
           />
         );
       case 'select':
@@ -47,9 +52,9 @@ const RequestForm = (props) => {
               onChange={(e) => handleInputChange(field.name, e.target.value)}
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              <option value="">Select a detail</option>
+              <option value="">Select a company</option>
               {field.options.map(option => (
-                <option key={option} value={option}>Detail {option}</option>
+                <option key={option} value={option}>{option}</option>
               ))}
             </select>
             <span className={`dropdown-icon ${isDropdownOpen ? 'open' : ''}`}></span>
@@ -58,6 +63,7 @@ const RequestForm = (props) => {
       case 'text':
       case 'password':
       case 'email':
+      case 'tel':
         return (
           <input
             type={field.type}
@@ -84,14 +90,48 @@ const RequestForm = (props) => {
       e.preventDefault();
       onSubmit(formData, setIsLoading, setErrorMessage);
     }}>
-      <h2 className="form-title">{props.title}</h2>
+      {isSignIn ? (
+        <h1 className="sign-in-header">{props.title}</h1>
+      ) : (
+        <h2 className="form-title">{props.title}</h2>
+      )}
       
+      {!isSignIn && (
+        <div className="name-input">
+          <h3>Name</h3>
+          <input
+            type="text"
+            value={formData.name}
+            onChange={(e) => handleInputChange('name', e.target.value)}
+            placeholder="Enter name here"
+          />
+        </div>
+      )}
+
       {formFields.map(field => (
         <div key={field.name} className={`${field.name}-input`}>
-          <h3>{field.label}</h3>
+          <h3>
+            {field.name === 'dateRange' ? 'Date of Birth' :
+             field.name === 'selectedDetail' ? 'Company' :
+             field.name === 'email' ? 'Email' :
+             field.name === 'reason' ? 'Designation' :
+             field.label}
+          </h3>
           {renderField(field)}
         </div>
       ))}
+
+      {!isSignIn && (
+        <div className="contact-number-input">
+          <h3>Contact Number</h3>
+          <input
+            type="tel"
+            value={formData.contactNumber}
+            onChange={(e) => handleInputChange('contactNumber', e.target.value)}
+            placeholder="Enter contact number here"
+          />
+        </div>
+      )}
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
@@ -108,15 +148,3 @@ const RequestForm = (props) => {
 };
 
 export default RequestForm;
-
-
-
-
-
-
-
-
-
-
-
-

@@ -20,11 +20,13 @@ export const AuthProvider = ({ children }) => {
           setUser(response.data.user);
           setIsAuthenticated(true);
         } else {
-          setIsAuthenticated(false);
+          // Instead of setting isAuthenticated to false, we'll keep the previous state
+          setIsAuthenticated(prev => prev);
         }
       } catch (error) {
         console.error('Error checking auth status:', error);
-        setIsAuthenticated(false);
+        // Keep the previous authentication state on error
+        setIsAuthenticated(prev => prev);
       }
       setIsLoading(false);
     };
@@ -36,6 +38,8 @@ export const AuthProvider = ({ children }) => {
     try {
       setUser(user);
       setIsAuthenticated(true);
+      // Store authentication state in localStorage
+      localStorage.setItem('isAuthenticated', 'true');
       return true;
     } catch (error) {
       console.error('Login error:', error);
@@ -51,7 +55,17 @@ export const AuthProvider = ({ children }) => {
     }
     setUser(null);
     setIsAuthenticated(false);
+    // Remove authentication state from localStorage
+    localStorage.removeItem('isAuthenticated');
   };
+
+  // Check localStorage for authentication state on initial load
+  useEffect(() => {
+    const storedAuthState = localStorage.getItem('isAuthenticated');
+    if (storedAuthState === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, isLoading, login, logout }}>
@@ -59,6 +73,7 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
 
 
 
